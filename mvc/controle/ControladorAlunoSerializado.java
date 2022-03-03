@@ -33,11 +33,13 @@ public class ControladorAlunoSerializado {
         else return alunos.get(dre);
     }
 
-    public void criaAluno(String dre, String nome, String codigoPostal, String numeroTelefone, String cep, String estado, String cidade, String rua, String numero) throws DreDuplicadoException, EnderecoIncompletoException, TelefoneIncompletoException {
+    public void criaAluno(String dre, String nome, String codigoPostal, String numeroTelefone, String cep, String estado, String cidade, String rua, String numero, String dataNasc) throws DreDuplicadoException, EnderecoIncompletoException, TelefoneIncompletoException, DataNascIncompletoException {
         if (codigoPostal.length() == 0 || numeroTelefone.length() == 0) {
             throw new TelefoneIncompletoException();
         } else if (cep.length() == 0 || estado.length() == 0 || cidade.length() == 0 || rua.length() == 0 || numero.length() == 0) {
             throw new EnderecoIncompletoException();
+        } else if (dataNasc.length() == 0){
+            throw new DataNascIncompletoException();
         } else if (alunos.get(dre) == null) {
             Telefone telefone = new Telefone(codigoPostal, numeroTelefone);
             Endereco endereco = new Endereco(cep, estado, cidade, rua, numero);

@@ -1,2 +1,4 @@
-package mvc.controle;public class DataNascIncompletoException {
+package mvc.controle;
+
+public class DataNascIncompletoException extends Exception{
 }

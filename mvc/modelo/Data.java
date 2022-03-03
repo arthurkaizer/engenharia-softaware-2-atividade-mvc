@@ -1,2 +1,7 @@
-package mvc.modelo;public class DataNasc {
+package mvc.modelo;
+
+public class Data {
+    private int dia;
+    private int mes;
+    private int ano;
 }
