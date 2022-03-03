@@ -5,9 +5,7 @@
  */
 package mvc.vista;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -15,35 +13,40 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
+
+import mvc.controle.EnderecoIncompletoException;
+import mvc.controle.TelefoneIncompletoException;
 import mvc.vista.AlunoInexistenteException;
 import mvc.controle.ControladorAlunoSerializado;
 import mvc.controle.DreDuplicadoException;
 
 public class GuiSimplesSalvando {
-private String dre, nome;
+private String dre, nome, codigoPostal, telefone, cep, estado, cidade, rua, numero;
 private JFrame janela;
-private JPanel painelGeral, pCentro, pDisplay, pDre, pNome, pBotoes, pMensagem;
-private JLabel labelDre, labelNome, labelMensagem;
+private JPanel painelGeral, pCentro, pDisplay, pDre, pNome, pBotoes, pMensagem, pTelefone, pEndereco;
+private JLabel labelDre, labelNome, labelMensagem, labelTelefone, labelCodigoPostal, labelCep, labelEstado, labelCidade, labelRua, labelNumero;
 private JButton botCriar, botObterNome, botSalvar, botLimpar;
-private JTextField tfDre, tfNome, tfMensagem;
+private JTextField tfDre, tfNome, tfMensagem, tfTelefone, tfCodigoPostal, tfCep, tfEstado, tfCidade, tfRua, tfNumero;
 private ControladorAlunoSerializado controlador =
  ControladorAlunoSerializado.getControladorAlunoSerializado();
 public GuiSimplesSalvando() {
 janela = new JFrame("GUI Simples Persistente");
 painelGeral = new JPanel(new BorderLayout());
 pCentro = new JPanel(new BorderLayout());
-pDisplay = new JPanel(new GridLayout(2,1));
+pDisplay = new JPanel(new GridLayout(4,1));
 pDre = new JPanel();
 pNome = new JPanel();
+pTelefone = new JPanel();
+pEndereco = new JPanel();
 pDre.setLayout(new FlowLayout(FlowLayout.LEFT));
 pNome.setLayout(new FlowLayout(FlowLayout.LEFT));
+pTelefone.setLayout(new FlowLayout(FlowLayout.LEFT));
+pEndereco.setLayout(new GridLayout(5,1));
 pDisplay.add(pDre);
 pDisplay.add(pNome);
+pDisplay.add(pTelefone);
+pDisplay.add(pEndereco);
 labelDre = new JLabel("DRE: ");
 pDre.add(labelDre);
 tfDre = new JTextField(10);
@@ -53,6 +56,38 @@ labelNome = new JLabel("Nome: ");
 pNome.add(labelNome);
 tfNome = new JTextField(30);
 pNome.add(tfNome);
+
+
+labelCodigoPostal = new JLabel("Código Postal: ");
+pTelefone.add(labelCodigoPostal);
+tfCodigoPostal = new JTextField(2);
+pTelefone.add(tfCodigoPostal);
+labelTelefone = new JLabel("Telefone: ");
+pTelefone.add(labelTelefone);
+tfTelefone = new JTextField(9);
+pTelefone.add(tfTelefone);
+
+labelCep = new JLabel("CEP: ");
+labelEstado = new JLabel("Estado: ");
+labelCidade = new JLabel("Cidade: ");
+labelRua = new JLabel("Rua: ");
+labelNumero = new JLabel("Número: ");
+pEndereco.add(labelCep);
+tfCep = new JTextField(8);
+pEndereco.add(tfCep);
+pEndereco.add(labelEstado);
+tfEstado = new JTextField(30);
+pEndereco.add(tfEstado);
+pEndereco.add(labelCidade);
+tfCidade = new JTextField(30);
+pEndereco.add(tfCidade);
+pEndereco.add(labelRua);
+tfRua = new JTextField(30);
+pEndereco.add(tfRua);
+pEndereco.add(labelNumero);
+tfNumero = new JTextField(10);
+pEndereco.add(tfNumero);
+
 pBotoes = new JPanel();
 botCriar = new JButton("Criar Aluno");
 botCriar.addActionListener(new OuvinteCriar());
@@ -78,7 +113,7 @@ pCentro.add(pBotoes, BorderLayout.SOUTH);
 painelGeral.add(pCentro, BorderLayout.CENTER);
 painelGeral.add(pMensagem, BorderLayout.SOUTH);
 janela.add(painelGeral);
-janela.setBounds(0, 0, 600, 400);
+janela.setBounds(0, 0, 600, 600);
 janela.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 janela.setVisible(true);
 try{
@@ -106,14 +141,25 @@ class OuvinteCriar implements ActionListener {
 public void actionPerformed(ActionEvent aev){
 nome = tfNome.getText();
 dre = tfDre.getText();
+codigoPostal = tfCodigoPostal.getText();
+telefone = tfCodigoPostal.getText();
+cep = tfCep.getText();
+estado = tfEstado.getText();
+cidade = tfEstado.getText();
+rua = tfRua.getText();
+numero = tfNumero.getText();
 try{
-controlador.criaAluno(dre, nome);
+controlador.criaAluno(dre, nome, codigoPostal, telefone, cep, estado, cidade, rua, numero);
 tfMensagem.setText("Aluno " + nome + " criado OK, com DRE " +
-dre);
+dre+" ..... ");
 }
 catch(DreDuplicadoException ex){
 tfMensagem.setText
  ("Não foi possível criar o aluno. O DRE " + dre + " já foi alocado");
+} catch (EnderecoIncompletoException e) {
+    tfMensagem.setText("Endereço Incompleto");
+}catch (TelefoneIncompletoException ex){
+    tfMensagem.setText("Telefone Incompleto");
 }
 }
 }
