@@ -31,7 +31,7 @@ public GuiSimplesSalvando() {
 janela = new JFrame("GUI Simples Persistente");
 painelGeral = new JPanel(new BorderLayout());
 pCentro = new JPanel(new BorderLayout());
-pDisplay = new JPanel(new GridLayout(4,1));
+pDisplay = new JPanel(new GridLayout(5,1));
 pDre = new JPanel();
 pNome = new JPanel();
 pTelefone = new JPanel();
@@ -196,7 +196,10 @@ tfMensagem.setText
 }
 class OuvinteLimpar implements ActionListener{
 public void actionPerformed(ActionEvent aev){
-controlador.limparDados();
+        controlador.limparDados();
+        tfMensagem.setText
+                ("Dados dos alunos no arquivo limpos com sucesso");
+
 }
 }
 public static void main(String[] args) {

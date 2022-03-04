@@ -28,7 +28,7 @@ public class ControladorAlunoSerializado {
         alunos = new HashMap<String, Aluno>();
     }
 
-    public Aluno getAluno(String dre) throws AlunoInexistenteException {
+    public Aluno getAluno(String dre) throws AlunoInexistenteException{
         if (alunos.get(dre) == null) throw new AlunoInexistenteException(dre);
         else return alunos.get(dre);
     }
@@ -43,7 +43,7 @@ public class ControladorAlunoSerializado {
         } else if (alunos.get(dre) == null) {
             Telefone telefone = new Telefone(codigoPostal, numeroTelefone);
             Endereco endereco = new Endereco(cep, estado, cidade, rua, numero);
-            alunos.put(dre, new Aluno(dre, nome, telefone, endereco));
+            alunos.put(dre, new Aluno(dre, nome, telefone.toString(), endereco.toString()));
         } else throw new DreDuplicadoException();
     }
 
@@ -65,7 +65,7 @@ public class ControladorAlunoSerializado {
         alunos = (HashMap<String, Aluno>) objeto;
     }
 
-    public void limparDados() {
+    public void limparDados(){
 // destroi todos os dados da memória
         alunos = new HashMap<String, Aluno>();
     }
