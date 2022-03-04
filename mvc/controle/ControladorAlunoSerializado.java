@@ -62,7 +62,14 @@ public class ControladorAlunoSerializado {
         ObjectInputStream ois =
                 new ObjectInputStream(new FileInputStream("alunos.ser"));
         Object objeto = ois.readObject();
-        alunos = (HashMap<String, Aluno>) objeto;
+
+    }
+
+    //Terminar funcao alterar
+    public void alterarAlunos() throws IOException, ClassNotFoundException, AlunoInexistenteException {
+        FileOutputStream fos = new FileOutputStream("alunos.ser");
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
+
     }
 
     public void limparDados(){
