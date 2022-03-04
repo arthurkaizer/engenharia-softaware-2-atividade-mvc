@@ -23,7 +23,7 @@ private String dre, nome, codigoPostal, telefone, cep, estado, cidade, rua, nume
 private JFrame janela;
 private JPanel painelGeral, pCentro, pDisplay, pDre, pNome, pBotoes, pMensagem, pTelefone, pEndereco, pdataNasc;
 private JLabel labelDre, labelNome, labelMensagem, labelTelefone, labelCodigoPostal, labelCep, labelEstado, labelCidade, labelRua, labelNumero, labelDataNasc;
-private JButton botCriar, botObterNome, botSalvar, botLimpar;
+private JButton botCriar, botObterNome, botSalvar, botAlterar, botLimpar;
 private JTextField tfDre, tfNome, tfMensagem, tfTelefone, tfCodigoPostal, tfCep, tfEstado, tfCidade, tfRua, tfNumero, tfDataNasc;
 private ControladorAlunoSerializado controlador =
  ControladorAlunoSerializado.getControladorAlunoSerializado();
@@ -102,6 +102,9 @@ pBotoes.add(botObterNome);
 botSalvar = new JButton("Salvar dados");
 botSalvar.addActionListener(new OuvinteSalvar());
 pBotoes.add(botSalvar);
+botAlterar = new JButton("Alterar dados");
+botAlterar.addActionListener(new OuvinteAlterar());
+pBotoes.add(botAlterar);
 botLimpar = new JButton("Limpar dados");
 botLimpar.addActionListener(new OuvinteLimpar());
 pBotoes.add(botLimpar);
@@ -202,6 +205,14 @@ public void actionPerformed(ActionEvent aev){
 
 }
 }
+
+//implementar
+class OuvinteAlterar implements ActionListener{
+    public void actionPerformed(ActionEvent aev){
+
+    }
+}
+
 public static void main(String[] args) {
 new GuiSimplesSalvando();
 }
