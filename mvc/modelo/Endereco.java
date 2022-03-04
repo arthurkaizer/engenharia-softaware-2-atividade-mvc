@@ -1,6 +1,6 @@
 package mvc.modelo;
 
-public class Endereco {
+public class Endereco{
     private String cep;
     private String estado;
     private String cidade;
@@ -13,5 +13,16 @@ public class Endereco {
         this.cidade = cidade;
         this.rua = rua;
         this.numero = numero;
+    }
+
+    @Override
+    public String toString() {
+        return "Endereco{" +
+                "cep='" + cep + '\'' +
+                ", estado='" + estado + '\'' +
+                ", cidade='" + cidade + '\'' +
+                ", rua='" + rua + '\'' +
+                ", numero='" + numero + '\'' +
+                '}';
     }
 }
