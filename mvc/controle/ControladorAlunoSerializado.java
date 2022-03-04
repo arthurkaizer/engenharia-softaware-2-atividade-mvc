@@ -69,7 +69,8 @@ public class ControladorAlunoSerializado {
     public void alterarAlunos() throws IOException, ClassNotFoundException, AlunoInexistenteException {
         FileOutputStream fos = new FileOutputStream("alunos.ser");
         ObjectOutputStream oos = new ObjectOutputStream(fos);
-
+        oos.writeObject(alunos);
+        oos.close();
     }
 
     public void limparDados(){

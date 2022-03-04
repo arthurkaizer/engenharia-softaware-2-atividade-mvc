@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 import javax.swing.*;
 
 import mvc.controle.*;
-import mvc.vista.AlunoInexistenteException;
+import mvc.controle.AlunoInexistenteException;
 
 public class GuiSimplesSalvando {
 private String dre, nome, codigoPostal, telefone, cep, estado, cidade, rua, numero, dataNasc;
@@ -209,6 +209,13 @@ public void actionPerformed(ActionEvent aev){
 //implementar
 class OuvinteAlterar implements ActionListener{
     public void actionPerformed(ActionEvent aev){
+        try{
+            controlador.alterarAlunos();
+            tfMensagem.setText("Dados do Aluno alterado com sucesso!");
+        }
+        catch (IOException | ClassNotFoundException | AlunoInexistenteException ioe){
+            tfMensagem.setText("Nao foi possivel alterar os dados do aluno");
+        }
 
     }
 }
