@@ -62,15 +62,24 @@ public class ControladorAlunoSerializado {
         ObjectInputStream ois =
                 new ObjectInputStream(new FileInputStream("alunos.ser"));
         Object objeto = ois.readObject();
+        alunos = (HashMap<String, Aluno>)objeto;
 
     }
 
     //Terminar funcao alterar
-    public void alterarAlunos() throws IOException, ClassNotFoundException, AlunoInexistenteException {
-        FileOutputStream fos = new FileOutputStream("alunos.ser");
-        ObjectOutputStream oos = new ObjectOutputStream(fos);
-        oos.writeObject(alunos);
-        oos.close();
+    public void alterarAlunos(String dre, String nome, String codigoPostal, String numeroTelefone, String cep, String estado, String cidade, String rua, String numero, String dataNasc) throws IOException, ClassNotFoundException, AlunoInexistenteException, TelefoneIncompletoException, EnderecoIncompletoException, DataNascIncompletoException {
+        if (codigoPostal.length() == 0 || numeroTelefone.length() == 0) {
+            throw new TelefoneIncompletoException();
+        } else if (cep.length() == 0 || estado.length() == 0 || cidade.length() == 0 || rua.length() == 0 || numero.length() == 0) {
+            throw new EnderecoIncompletoException();
+        } else if (dataNasc.length() == 0){
+            throw new DataNascIncompletoException();
+        } else{
+            alunos.remove(dre);
+            Telefone telefone = new Telefone(codigoPostal, numeroTelefone);
+            Endereco endereco = new Endereco(cep, estado, cidade, rua, numero);
+            alunos.put(dre, new Aluno(dre, nome, telefone.toString(), endereco.toString()));
+        }
     }
 
     public void limparDados(){

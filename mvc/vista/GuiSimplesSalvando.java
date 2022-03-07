@@ -141,6 +141,13 @@ class OuvinteTfDre extends KeyAdapter{
 public void keyTyped(KeyEvent ev){
 tfMensagem.setText("");
 tfNome.setText("");
+tfCodigoPostal.setText("");
+tfTelefone.setText("");
+tfCep.setText("");
+tfEstado.setText("");
+tfCidade.setText("");
+tfRua.setText("");
+tfNumero.setText("");
 }
 }
 class OuvinteCriar implements ActionListener {
@@ -201,7 +208,7 @@ class OuvinteLimpar implements ActionListener{
 public void actionPerformed(ActionEvent aev){
         controlador.limparDados();
         tfMensagem.setText
-                ("Dados dos alunos no arquivo limpos com sucesso");
+                ("Dados dos alunos limpos com sucesso");
 
 }
 }
@@ -209,12 +216,29 @@ public void actionPerformed(ActionEvent aev){
 //implementar
 class OuvinteAlterar implements ActionListener{
     public void actionPerformed(ActionEvent aev){
+        nome = tfNome.getText();
+        dre = tfDre.getText();
+        codigoPostal = tfCodigoPostal.getText();
+        telefone = tfCodigoPostal.getText();
+        cep = tfCep.getText();
+        estado = tfEstado.getText();
+        cidade = tfEstado.getText();
+        rua = tfRua.getText();
+        numero = tfNumero.getText();
+        dataNasc = tfDataNasc.getText();
         try{
-            controlador.alterarAlunos();
+            dre = tfDre.getText();
+            controlador.alterarAlunos(dre, nome, codigoPostal, telefone, cep, estado, cidade, rua, numero, dataNasc);
             tfMensagem.setText("Dados do Aluno alterado com sucesso!");
         }
         catch (IOException | ClassNotFoundException | AlunoInexistenteException ioe){
             tfMensagem.setText("Nao foi possivel alterar os dados do aluno");
+        } catch (EnderecoIncompletoException e) {
+            tfMensagem.setText("Endereço Incompleto");
+        }   catch (TelefoneIncompletoException ex){
+            tfMensagem.setText("Telefone Incompleto");
+        }   catch (DataNascIncompletoException ex){
+            tfMensagem.setText("Data de Nascimento Incompleto");
         }
 
     }
